@@ -60,6 +60,7 @@ contract FlightSuretyData {
                                 public 
     {
         contractOwner = msg.sender;
+        
     }
 
     /********************************************************************************************/
@@ -262,14 +263,15 @@ contract FlightSuretyData {
                                 (
                                     address airline,
                                     address passenger,
-                                    uint256 amount
+                                    uint256 amount,
+                                    uint256 creditRate
                                 )
                                 external
                                 requireIsOperational
                               
     {
         // Get expected amount to be credited
-        uint256 required_amount =insurance[airline].amount.mul(3).div(2);
+        uint256 required_amount =insurance[airline].amount.mul(creditRate).div(2);
 
         require(insurance[airline].passenger == passenger, "Passenger is not insured");
         require(required_amount == amount, "The amount to be credited is not as espected");
