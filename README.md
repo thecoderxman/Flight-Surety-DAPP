@@ -1,5 +1,7 @@
 # FlightSurety
 
+Note : While buying insurance please use only arrow symbols to increase and decrease price , dont manually enter the price.
+
 FlightSurety is a sample application project for Udacity's Blockchain course.
 
 ## Install
