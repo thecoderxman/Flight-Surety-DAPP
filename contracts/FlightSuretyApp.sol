@@ -51,7 +51,7 @@ contract FlightSuretyApp {
 
     event RegisterAirline(address account);
     event PurchaseInsurance(address airline, address sender, uint256 amount);
-    event CreditInsurees(address airline, address passenger, uint256 credit);  
+    event CreditInsurees(address airline, address passenger, uint256 credit, uint256 creditRate);  
     event FundedLines(address funded, uint256 value);
     event Withdraw(address sender,uint256 amount);
     event SubmitOracleResponse(uint8 indexes, address airline, string flight, uint256 timestamp, uint8 statusCode);
@@ -319,9 +319,11 @@ contract FlightSuretyApp {
         // Only credit if flight delay is airline fault (airline late and late due to technical)
         if((statusCode == STATUS_CODE_LATE_AIRLINE) || (statusCode == STATUS_CODE_LATE_TECHNICAL)){
             uint256 credit = amountPaid.mul(3).div(2);
+            uint256 creditRate = 1.5;
 
-            flightSuretyData.creditInsurees(airline, passenger, credit);
-            emit CreditInsurees(airline, passenger, credit);
+
+            flightSuretyData.creditInsurees(airline, passenger, credit, creditRate);
+            emit CreditInsurees(airline, passenger, creditRate);
             
             
         }
@@ -555,7 +557,7 @@ contract FlightSuretyData{
     function getAirlineOperatingStatus(address account) external returns(bool);
     function setAirlineOperatingStatus(address account, bool status) external;
     function registerInsurance(address airline, address passenger, uint256 amount) external;
-    function creditInsurees(address airline, address passenger, uint256 amount) external;
+    function creditInsurees(address airline, address passenger, uint256 amount, uint256 creditRate) external;
     function getInsuredPassenger_amount(address airline) external returns(address, uint256);
     function getPassengerCredit(address passenger) external returns(uint256);
     function getAirlineRegistrationStatus(address account) external  returns(bool);
