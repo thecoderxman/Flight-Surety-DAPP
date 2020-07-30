@@ -319,7 +319,7 @@ contract FlightSuretyApp {
         // Only credit if flight delay is airline fault (airline late and late due to technical)
         if((statusCode == STATUS_CODE_LATE_AIRLINE) || (statusCode == STATUS_CODE_LATE_TECHNICAL)){
             uint256 credit = amountPaid.mul(3).div(2);
-            uint256 creditRate = 1/uint256(2);
+            uint256 creditRate = 3;
 
 
             flightSuretyData.creditInsurees(airline, passenger, credit, creditRate);
